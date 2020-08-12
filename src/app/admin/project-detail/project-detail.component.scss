@@ -1,0 +1,17 @@
+@import "../../../assets/theme";
+
+section {
+  height: 245px;
+}
+
+.nav-item {
+  a {
+    color: $niagara;
+  }
+  &.disabled {
+    a {
+      color: $silver;
+      pointer-events: none;
+    }
+  }
+}

@@ -1,0 +1,140 @@
+<form [formGroup]="form">
+
+  <div class="w-100">
+    <p class="color-mine-shaft" [ngClass]="small ? 'font-13 font-weight-bold mb-15' : 'font-weight-medium mb-30 font-18'">Project Details</p>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3">
+        <job-hub-select id="{{prefix}}_projectType" [options]="projectOptions.projectAccessoryTypes" label="Project Type" formControlName="projectType" [readonly]="readonly"></job-hub-select>
+      </div>
+      <div class="col-12 col-md-6 col-lg-9">
+        <job-hub-multi-select id="{{prefix}}_materials" [options]="projectOptions.materialTypes" label="Type of materials" formControlName="materials" [readonly]="readonly"></job-hub-multi-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3">
+        <job-hub-select id="{{prefix}}_locationType" [options]="projectOptions.projectLocationTypes" label="Project location on property" formControlName="locationType" [readonly]="readonly"></job-hub-select>
+      </div>
+      <div class="col-12 col-md-6 col-lg-5">
+        <job-hub-text-input label="What's currently there" placeholder="Grass" formControlName="groundState" [readonly]="readonly"></job-hub-text-input>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <job-hub-text-input label="Approx size" placeholder="Enter size" formControlName="projectSize" [readonly]="readonly"></job-hub-text-input>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <job-hub-select id="{{prefix}}_shapeType" [options]="projectOptions.projectShapeTypes" label="Shape" formControlName="shapeType" [readonly]="readonly"></job-hub-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6" [class.col-md-12]="small">
+        <job-hub-textarea label="Landscaping Request - Details" placeholder="Some plants/ landscaping near the house" formControlName="requestDetails" [readonly]="readonly"></job-hub-textarea>
+      </div>
+      <div class="col-12 col-md-6" [class.col-md-12]="small">
+        <job-hub-textarea label="Project description" placeholder="Project description" formControlName="coreProjectComment" [readonly]="readonly"></job-hub-textarea>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-6 d-flex align-items-center" [class.justify-content-end]="!small" [class.justify-content-between]="small">
+        <p class="mr-20 font-weight-bold color-dove-gray" [class.text-left]="!small">Project Price</p>
+        <job-hub-text-input id="{{prefix}}_price" [readonly]="readonly" *ngIf="!small" label="Enter Amount" type="number" min="1" formControlName="price" placeholder="Enter Amount"></job-hub-text-input>
+        <p *ngIf="small" class="text-primary font-20 font-weight-medium">{{ proposal.price | currency }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-container formGroupName="items" *ngFor="let item of proposalItems.controls; let i = index">
+    <div class="pb-10" [formGroupName]="i" [class.disabled]="!item.get('accept').value && readonly">
+      <div class="d-flex justify-content-between align-items-center mb-20">
+        <p class="color-mine-shaft my-0" [ngClass]="small ? 'font-13 font-weight-bold' : 'font-weight-medium font-18'">{{ item.value.type | optionLabel : projectOptions.projectAccessoryTypes }}</p>
+        <div *ngIf="!readonly">
+          <button type="button" class="btn btn-danger bg-color-japonica btn-mini btn-small" (click)="deleteAccessory(i)">Delete accessory</button>
+        </div>
+        <mat-slide-toggle formControlName="accept" labelPosition="before" class="text-warning" *ngIf="proposal.id">{{small ? 'want to add this accessory?' : 'customer wants this accessory'}}</mat-slide-toggle>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-6">
+          <job-hub-multi-select id="{{prefix}}_items_{{i}}_materials" [options]="projectOptions.materialTypes" [readonly]="readonly" label="Type of materials" formControlName="materials"></job-hub-multi-select>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <job-hub-select [options]="projectOptions.manufacturerTypes" [readonly]="readonly" label="Brand / Manufacturer" formControlName="manufacturer"></job-hub-select>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <job-hub-text-input [readonly]="readonly" label="Product name" formControlName="productName" placeholder="Product Name"></job-hub-text-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-6">
+          <job-hub-multi-select [readonly]="readonly" [options]="projectOptions.preferredColors" label="Preferred Colors" formControlName="preferredColors"></job-hub-multi-select>
+        </div>
+
+        <div class="col-12 col-md-3 col-lg-3">
+          <job-hub-text-input [readonly]="readonly" label="Approximate Size" formControlName="size" placeholder="550 sq. feet"></job-hub-text-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <job-hub-textarea [readonly]="readonly" label="Project description" placeholder="Project Description" formControlName="comment"></job-hub-textarea>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-6 d-flex align-items-center" [class.justify-content-end]="!small" [class.justify-content-between]="small">
+          <p class="mr-20 font-weight-bold color-dove-gray" [class.text-left]="!small">{{ item.value.type | optionLabel : projectOptions.projectAccessoryTypes }} Price</p>
+          <job-hub-text-input id="{{prefix}}_items_{{i}}_price" [readonly]="readonly" *ngIf="!small" label="Enter Amount" type="number" min="1" formControlName="price" placeholder="Enter Amount"></job-hub-text-input>
+          <p *ngIf="small" class="text-primary font-20 font-weight-medium">{{ item.value.price | currency }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <p class="color-mine-shaft font-18 font-weight-medium my-25">Attach sketch or drawing</p>
+  <job-hub-photo-uploader [readonly]="readonly" align="start" formControlName="attachments"></job-hub-photo-uploader>
+
+  <p class="color-mine-shaft font-18 font-weight-medium my-25">Comment</p>
+  <div class="row">
+    <div class="col-12">
+      <job-hub-textarea [readonly]="readonly" label="Comments" formControlName="comment" placeholder="Comments"></job-hub-textarea>
+    </div>
+  </div>
+
+  <p class="color-mine-shaft font-18 font-weight-medium my-25">Summary</p>
+  <div class="row">
+    <div class="col-12 col-md-3 col-lg-3" [class.col-md-6]="small" [class.col-lg-6]="small">
+      <job-hub-text-input id="{{prefix}}_estimateCompleteDays" [readonly]="readonly" type="number" min="1" label="Estimated days to complete entire project" placeholder="3" formControlName="estimateCompleteDays"></job-hub-text-input>
+    </div>
+    <div class="col-12 col-md-3 col-lg-3" [class.col-md-6]="small" [class.col-lg-6]="small">
+      <job-hub-date-picker id="{{prefix}}_startDate" label="Approximate start date" formControlName="startDate" [readonly]="readonly"></job-hub-date-picker>
+    </div>
+    <div class="col-12 col-md-3 col-lg-3" [class.col-md-6]="small" [class.col-lg-6]="small">
+      <job-hub-date-picker id="{{prefix}}_endDate" label="Approximate complete date" formControlName="endDate" [readonly]="readonly"></job-hub-date-picker>
+    </div>
+    <div class="col-12 col-md-3 col-lg-3" [class.col-md-6]="small" [class.col-lg-6]="small">
+      <job-hub-select id="{{prefix}}_warrantyWorkmanShip" [readonly]="readonly" [options]="projectOptions.warrantyTypes" label="Warranty on all workmanship" formControlName="warrantyWorkmanShip"></job-hub-select>
+    </div>
+  </div>
+
+  <div class="row mb-50">
+    <div class="col-12">
+      <job-hub-summary-row label="Subtotal" [value]="subTotal"></job-hub-summary-row>
+    </div>
+    <div class="col-12">
+      <job-hub-summary-row label="Tax" [value]="tax"></job-hub-summary-row>
+    </div>
+    <div class="col-12">
+      <job-hub-summary-row
+        [isDiscount]="!small && !proposal.id"
+        label="Discount"
+        [(value)]="discount"
+        (valueChange)="refreshPrice(form.value)"
+        [readonly]="proposal.id"></job-hub-summary-row>
+    </div>
+    <div class="col-12">
+      <job-hub-summary-row label="Total" [value]="total" [isSummary]="true"></job-hub-summary-row>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!readonly">
+    <div class="col d-flex justify-content-start">
+      <button class="btn btn-primary" (click)="sendProposal()">{{ proposal.id ? 'Update' : 'Send Proposal' }}</button>
+    </div>
+  </div>
+
+</form>

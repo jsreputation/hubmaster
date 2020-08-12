@@ -1,0 +1,23 @@
+@import "../../../../assets/theme";
+
+.overlay-wrapper {
+  @include absolute_fit_parent;
+  .overlay {
+    @include absolute_fit_parent;
+    background-color: rgba(0, 0, 0, 0.35);
+    transition: ease background-color .3s;
+  }
+  .actions {
+    display: none;
+  }
+
+  &:hover {
+    .overlay {
+      background-color: transparent;
+      transition: ease background-color .3s;
+    }
+    .actions {
+      display: flex;
+    }
+  }
+}

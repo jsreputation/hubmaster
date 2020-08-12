@@ -1,0 +1,9 @@
+<div class="bg-white pt-3 pb-20 d-flex flex-column align-items-center font-weight-medium position-relative">
+  <job-hub-avatar [src]="user.avatar" [size]="100"></job-hub-avatar>
+  <div class="font-12 text-primary pt-15">Project Consultant</div>
+  <div class="font-14 color-mine-shaft">{{user.firstName + ' ' + user.lastName}}</div>
+  <div class="font-10 color-dove-gray mb-5 font-weight-normal" *ngIf="userRole">{{ userRole }}</div>
+  <a *ngIf="allowViewProfile" class="text-primary font-10" [routerLink]="[ROUTES.admin.root, ROUTES.admin.customers, user.id] | routeToAbsolute">View Profile</a>
+  <button class="btn btn-primary btn-small mt-20" (click)="sendMessage()" *ngIf="!readonly">Send Message</button>
+  <job-hub-spinner *ngIf="isLoading"></job-hub-spinner>
+</div>

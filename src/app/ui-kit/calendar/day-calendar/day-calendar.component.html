@@ -1,0 +1,21 @@
+<div class="day-calendar-wrapper pretty-scroll overflow-auto shadow-2 rounded">
+  <mwl-calendar-day-view
+    [viewDate]="viewDate"
+    [hourSegmentHeight]="61"
+    [hourSegments]="1"
+    [eventTitleTemplate]="eventTitle"
+    [events]="events">
+  </mwl-calendar-day-view>
+</div>
+
+<ng-template #eventTitle let-event="event" let-view="view">
+  <div class="d-flex align-items-center h-100">
+    <div class="mr-25">
+      <job-hub-schedule-icon [type]="event.meta.type"></job-hub-schedule-icon>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="font-13 font-weight-bold color-mine-shaft">{{ event.title }}</span>
+      <span class="font-11 color-dove-gray">{{ event.meta.project?.address || event.meta.user?.phone }}</span>
+    </div>
+  </div>
+</ng-template>

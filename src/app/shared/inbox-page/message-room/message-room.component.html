@@ -1,0 +1,13 @@
+<section class="d-flex flex-column h-100">
+  <div class="room-header mb-20 d-flex align-items-center">
+    <h4 class="font-weight-normal font-28 text-primary">{{ chat$ | async | opponent | fullName }}</h4>
+  </div>
+  <div class="flex-fit-parent pretty-scroll d-flex flex-column justify-content-start" #messageArea>
+    <ng-container *ngFor="let message of messages">
+      <job-hub-chat-bubble [message]="message" [user]="chat$ | async | messageFrom : message"></job-hub-chat-bubble>
+    </ng-container>
+  </div>
+  <div class="mt-20">
+    <job-hub-chat-input (send)="send($event)"></job-hub-chat-input>
+  </div>
+</section>

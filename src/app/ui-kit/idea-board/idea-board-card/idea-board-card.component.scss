@@ -1,0 +1,33 @@
+@import "../../../../assets/theme";
+
+.overlay-wrapper {
+  @include absolute_fit_parent;
+  .overlay {
+    @include absolute_fit_parent;
+    background-color: rgba(0, 0, 0, 0.35);
+    transition: ease background-color .3s;
+    &.selected {
+      background-color: transparent;
+    }
+  }
+  .actions {
+    display: none;
+  }
+
+  &:hover {
+    .overlay {
+      background-color: transparent;
+      transition: ease background-color .3s;
+    }
+    .actions {
+      display: flex;
+    }
+  }
+}
+
+job-hub-action-dropdown {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  z-index: 99;
+}

@@ -1,0 +1,38 @@
+<job-hub-table [rows]="projects"
+               [columns]="columns"
+               [loading]="isLoading"
+               [length]="total"
+               [pageSize]="take"
+               (page)="onPage($event)"
+               emptyDescription="No projects to display.">
+  <ng-template #imageColumn let-project="row">
+    <job-hub-avatar [type]="project.projectType"></job-hub-avatar>
+  </ng-template>
+
+  <ng-template #nameColumn let-project="row">
+    <div class="d-flex flex-column pr-20">
+      <a class="font-13 font-weight-bold text-primary mb-1" (click)="selectProject.emit(project.id)">{{ project.name }}</a>
+      <span class="font-10 font-weight-medium color-dove-gray">{{ project.address }}</span>
+    </div>
+  </ng-template>
+
+  <ng-template #dateColumn let-project="row">
+    <span class="font-13 color-mine-shaft">{{ project[dateField] | date }}</span>
+  </ng-template>
+
+  <ng-template #creatorColumn let-project="row">
+    <span class="font-13 text-primary">{{ project.user | fullName }}</span>
+  </ng-template>
+
+  <ng-template #statusColumn let-project="row">
+    <span class="font-13 text-primary">{{ project | projectStatus | optionLabel }}</span>
+  </ng-template>
+
+  <ng-template #contractColumn let-project="row">
+    <span class="font-13 text-primary">{{ project.contractStatus === ContractStatus.Pending ? '' : project.contractStatus | optionLabel }}</span>
+  </ng-template>
+
+  <ng-template #actionColumn>
+    <job-hub-action-dropdown></job-hub-action-dropdown>
+  </ng-template>
+</job-hub-table>

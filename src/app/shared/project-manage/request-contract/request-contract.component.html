@@ -1,0 +1,8 @@
+<div class="bg-white pt-3 pb-30 mt-35 position-relative" *ngIf="project.contractStatus !== ContractStatus.Accepted">
+  <h3 class="mb-30 text-center font-22 color-mine-shaft">Need Contract?</h3>
+  <div class="w-100 text-center">
+    <button class="btn btn-primary btn-small" (click)="handleContract()">{{ project.contractStatus | contractBtnLabel }}</button>
+  </div>
+
+  <job-hub-spinner *ngIf="isSaving"></job-hub-spinner>
+</div>

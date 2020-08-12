@@ -1,0 +1,28 @@
+<section class="pt-30 d-flex flex-column">
+  <div class="container d-flex justify-content-between mb-10">
+    <p class="color-mine-shaft mb-0 font-weight-medium">Idea Board</p>
+  </div>
+
+  <form class="container" [formGroup]="filterForm">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="row flex-grow-1">
+        <div class="col-12 col-md-6 col-lg-3">
+          <job-hub-select [options]="availableProjectAccessoryTypes" label="Services" placeholder="Services" formControlName="projectType"></job-hub-select>
+        </div>
+        <!--<div class="col-12 col-md-6 col-lg-3">
+          <job-hub-select [options]="projectOptions.materialTypes" label="Materials" placeholder="Materials" formControlName="materialType"></job-hub-select>
+        </div>-->
+      </div>
+      <div>
+        <button class="btn btn-primary mb-20 btn-toggle-mode" (click)="viewAllToggle()">{{ viewAll ? 'My likes' : 'View inspiration board' }}</button>
+      </div>
+    </div>
+  </form>
+
+  <job-hub-scrollable-idea-board [clickable]="true"
+                                 [userId]="user.id"
+                                 [hasContainer]="true"
+                                 [viewAll$]="viewAll$"
+                                 [filter$]="filterForm.valueChanges"></job-hub-scrollable-idea-board>
+</section>
+

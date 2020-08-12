@@ -1,0 +1,15 @@
+<section class="p-30">
+  <div class="d-flex justify-content-between align-items-center">
+    <p class="font-18 color-mine-shaft mb-0 font-weight-medium">Projects</p>
+    <form [formGroup]="form">
+      <job-hub-select [options]="options" label="Filter" placeholder="Filter" formControlName="contractorId"></job-hub-select>
+    </form>
+  </div>
+
+  <job-hub-project-table (selectProject)="navigateToProjectDetail($event)"
+                         [contractorIdChanged$]="form.get('contractorId').valueChanges"
+                         hasCreatorColumn="true"
+                         dateField="createdAt"
+                         dateLabel="Posted"></job-hub-project-table>
+
+</section>

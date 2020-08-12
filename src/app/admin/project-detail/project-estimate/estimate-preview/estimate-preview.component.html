@@ -1,0 +1,21 @@
+<job-hub-estimate-review-warning-alert *ngIf="!estimate.id"></job-hub-estimate-review-warning-alert>
+<job-hub-project-status-alert type="danger" text="This estimate declined by client" *ngIf="estimate.status === EstimateStatus.Declined"></job-hub-project-status-alert>
+<job-hub-project-status-alert type="info" text="This estimate is under review by customer" *ngIf="estimate.status === EstimateStatus.Pending"></job-hub-project-status-alert>
+
+<job-hub-estimate-form [estimate]="estimate"
+                       [project]="project$ | async"
+                       [renderSchedules]="true"
+                       [readonly]="true"
+                       [assignable]="!estimate.id || isEditing"
+                       [contractors]="contractors"
+                       (createFinalProposal)="createFinalProposal()"
+                       (formChange)="form = $event"></job-hub-estimate-form>
+
+<ng-container *ngIf="estimate.id && estimate.status !== EstimateStatus.Declined && !(project$ | async)?.finalProposal">
+  <button class="btn btn-warning text-white mt-20 px-50" *jobHubIfAssignedContractor="(project$ | async)?.assignedContractor?.id" (click)="onEdit()">{{ isEditing ? 'Save' : 'Edit' }}</button>
+</ng-container>
+
+<ng-container *ngIf="!estimate.id">
+  <button class="btn btn-primary mt-20 px-50" *jobHubIfRoles="[UserRole.SuperAdmin]" (click)="sendEstimate()" [disabled]="!form || form.invalid || !form.value.contractorUserId">Send Estimate</button>
+</ng-container>
+<job-hub-spinner *ngIf="isLoading"></job-hub-spinner>

@@ -1,0 +1,7 @@
+<section class="py-50 px-75 position-relative">
+  <job-hub-proposal-form [proposal]="proposal" [small]="false"
+                         [readonly]="proposal.status === FinalProposalStatus.Declined || proposal.status === FinalProposalStatus.Accepted
+                                    || (project$ | async)?.contractStatus === ContractStatus.Ready || (project$ | async)?.contractStatus === ContractStatus.Accepted"
+                         (createFinalProposal)="createFinalProposal($event)"></job-hub-proposal-form>
+  <job-hub-spinner *ngIf="isLoading"></job-hub-spinner>
+</section>

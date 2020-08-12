@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <ng-container formGroupName="user">
+    <job-hub-text-input placeholder="Full name" readonly="true" [value]="form.get('user').value.firstName + ' ' + form.get('user').value.lastName"></job-hub-text-input>
+    <job-hub-text-input type="email" placeholder="Email" readonly="true" [value]="form.get('user').value.email"></job-hub-text-input>
+    <job-hub-text-input type="password" placeholder="Password" formControlName="password"></job-hub-text-input>
+    <job-hub-text-input type="password" placeholder="Confirm Password" formControlName="confirmPassword"></job-hub-text-input>
+
+    <div class="mt-35 text-left">
+      <mat-checkbox class="color-dove-gray" formControlName="terms">
+        I agree to the <a class="text-primary" [routerLink]="ROUTES.landingPages.legalNotice | routeToAbsolute">Terms of Service</a> and <a class="text-primary" [routerLink]="ROUTES.landingPages.privacy | routeToAbsolute">Privacy Policy</a>
+      </mat-checkbox>
+    </div>
+  </ng-container>
+</form>

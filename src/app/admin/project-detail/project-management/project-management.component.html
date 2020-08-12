@@ -1,0 +1,28 @@
+<section class="py-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-9">
+        <p class="color-regent-gray font-weight-medium mb-20">Manage Project</p>
+        <div *ngFor="let milestone of milestones; let i = index;">
+          <job-hub-milestone [disableActions]="i !== 0 && milestones[ i - 1 ].paidDate == null"
+                             [isPaying]="false"
+                             [readonly]="!(project | isProjectEditable)"
+                             [milestone]="milestone"
+                             [project]="project"
+                             (confirmCashPayment)="confirmCashPayment($event)"
+                             (review)="requestReview($event)"
+                             (editMilestone)="editMilestone($event)"
+                             (removeAddOn)="removeAddOn($event)"
+                             (makeRefund)="makeRefund($event)"
+                             (requestPayment)="requestPayment($event)"></job-hub-milestone>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <job-hub-request-chat userRole="Customer" [readonly]="!(project | isProjectEditable : true)" [project]="project" allowViewProfile="true" [user]="project.user"></job-hub-request-chat>
+        <div class="mt-40" *ngIf="!(project | isProjectEditable : true)">
+          <job-hub-request-chat userRole="Contractor" [readonly]="!(project | isProjectEditable : true)" [project]="project" [allowViewProfile]="false" [user]="project.assignedContractor"></job-hub-request-chat>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

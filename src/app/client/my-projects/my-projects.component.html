@@ -1,0 +1,7 @@
+<section class="py-30">
+  <div class="container">
+    <p class="font-weight-medium color-mine-shaft mb-15">Pending</p>
+    <job-hub-project-table (selectProject)="navigateToProjectDetail($event)"></job-hub-project-table>
+    <button class="btn btn-primary mt-30" [routerLink]="[ROUTES.app.root, ROUTES.app.createProject] | routeToAbsolute">+ New Project</button>
+  </div>
+</section>

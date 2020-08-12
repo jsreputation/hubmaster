@@ -1,0 +1,23 @@
+@import "../../../../../assets/theme";
+
+.day-button, .time-button {
+  cursor: pointer;
+  background-color: $catskill-white;
+  color: $dove-gray;
+  transition: ease all .3s;
+
+  &.active {
+    background-color: $niagara;
+    color: white;
+  }
+}
+
+.time-button {
+  width: 115px;
+  height: 44px;
+}
+
+.day-button {
+  width: 88px;
+  height: 59px;
+}

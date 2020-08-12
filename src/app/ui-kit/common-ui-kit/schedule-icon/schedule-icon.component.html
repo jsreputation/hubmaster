@@ -1,0 +1,11 @@
+<div [ngSwitch]="type">
+  <ng-container *ngSwitchCase="ScheduleType.Consultation">
+    <img [width]="size" src="assets/images/icons/consultation-type/phone-call.svg" alt="Icon">
+  </ng-container>
+  <ng-container *ngSwitchCase="ScheduleType.SiteVisitSchedule">
+    <img [width]="size" src="assets/images/icons/consultation-type/site-visit.svg" alt="Icon">
+  </ng-container>
+  <ng-container *ngSwitchCase="ScheduleType.ProjectStart">
+    <img [width]="size" src="assets/images/icons/consultation-type/start-project.svg" alt="Icon">
+  </ng-container>
+</div>

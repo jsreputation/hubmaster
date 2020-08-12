@@ -1,0 +1,30 @@
+<section class="py-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-9">
+        <p class="color-regent-gray font-weight-medium mb-20">Project Estimate</p>
+        <job-hub-project-status-alert type="danger" text="Estimate Declined" *ngIf="estimate.status === EstimateStatus.Declined"></job-hub-project-status-alert>
+        <job-hub-site-visit-schedule-alert *ngIf="estimate.status === EstimateStatus.SiteVisitScheduled"
+                                           [schedule]="selectedSchedule"
+                                           (cancel)="cancelSchedule()"
+                                           (reschedule)="reschedule()"></job-hub-site-visit-schedule-alert>
+        <job-hub-estimate-form [small]="true" [readonly]="true" [renderSchedules]="true" [estimate]="estimate" [showStatus]="false" [project]="project"></job-hub-estimate-form>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <div class="client-sticky-sidebar">
+          <button class="btn btn-warning text-white btn-small w-100" *ngIf="estimate.status === EstimateStatus.Pending" (click)="scheduleSiteVisit()">Schedule site visit</button>
+          <div class="mt-45" *ngIf="project.latitude && project.longitude">
+            <job-hub-map [latitude]="project.latitude" [longitude]="project.longitude"></job-hub-map>
+          </div>
+          <div *ngIf="project.assignedContractor" class="mt-45">
+            <job-hub-request-chat [project]="project" [user]="project.assignedContractor"></job-hub-request-chat>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-danger text-white btn-small" *ngIf="estimate.status === EstimateStatus.Pending" (click)="decline()">Decline</button>
+    </div>
+  </div>
+  <job-hub-spinner *ngIf="isSaving"></job-hub-spinner>
+</section>

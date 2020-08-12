@@ -1,0 +1,17 @@
+<div class="d-flex flex-wrap mb-20" [ngClass]="'justify-content-' + align">
+  <div class="mr-10 mb-10" *ngFor="let file of files; let i = index;">
+    <div class="photo position-relative" [style.width.px]="size" [style.height.px]="size">
+      <img class="img-fluid" [src]="file.url" alt="Image" *ngIf="file.url">
+      <span *ngIf="file.failed">Failed!</span>
+      <job-hub-spinner *ngIf="file.loading" [diameter]="size / 2"></job-hub-spinner>
+      <div class="overlay" *ngIf="!readonly">
+        <job-hub-icon icon="close" color="white" class="cursor-pointer" (click)="deleteItem(i)"></job-hub-icon>
+      </div>
+    </div>
+  </div>
+  <p class="font-12 color-dove-gray" *ngIf="readonly && !files.length">No attachments</p>
+  <label class="cursor-pointer" *ngIf="!readonly" [style.width.px]="size" [style.height.px]="size">
+    <input class="d-none" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+    <img class="img-fluid" src="assets/images/icons/image-plus.svg" alt="Plus">
+  </label>
+</div>

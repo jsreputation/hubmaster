@@ -1,0 +1,20 @@
+<section class="p-30">
+  <div class="d-flex justify-content-between mb-20">
+    <p class="font-18 color-mine-shaft mb-0 font-weight-medium">Schedule</p>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <div class="btn-group mb-15">
+      <button class="btn btn-mini font-12 font-weight-normal" [class.btn-primary]="view === CalendarView.Day" (click)="changeView(CalendarView.Day)">Today</button>
+      <button class="btn btn-mini font-12 font-weight-normal" [class.btn-primary]="view === CalendarView.Month" (click)="changeView(CalendarView.Month)">Month</button>
+    </div>
+    <span class="font-18 font-weight-medium color-mine-shaft">{{ viewDate | date }}</span>
+
+    <job-hub-calendar-navigator [view]="view" [(viewDate)]="viewDate" (viewDateChange)="changeViewDate($event)"></job-hub-calendar-navigator>
+  </div>
+
+  <div [ngSwitch]="view">
+    <job-hub-month-calendar *ngSwitchCase="CalendarView.Month" [events]="events" [viewDate]="viewDate"></job-hub-month-calendar>
+    <job-hub-day-calendar *ngSwitchCase="CalendarView.Day" [events]="events" [viewDate]="viewDate"></job-hub-day-calendar>
+  </div>
+</section>

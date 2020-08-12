@@ -1,0 +1,23 @@
+<li ngbDropdown class="nav-item px-20 h-100">
+  <div class="d-flex align-items-center h-100">
+    <a class="nav-link color-tundora" id="my_account" ngbDropdownToggle>My Account</a>
+    <job-hub-avatar class="ml-2" [src]="(user$ | async)?.avatar"></job-hub-avatar>
+  </div>
+  <div class="position-absolute left" ngbDropdownMenu aria-labelledby="my_account">
+    <button ngbDropdownItem [routerLink]="[ROUTES.common.account.root, ROUTES.common.account.projectsSetting]">
+      <job-hub-avatar [size]="32" [src]="(user$ | async)?.avatar"></job-hub-avatar>
+      <ng-container *ngIf="(user$ | async) as user">
+        <span>{{ user.firstName + ' ' + user.lastName }}</span>
+      </ng-container>
+    </button>
+    <button ngbDropdownItem [routerLink]="[ROUTES.common.account.root, ROUTES.common.account.accountSetting]">
+      <job-hub-icon icon="setting"></job-hub-icon>
+      <span>Account settings</span>
+    </button>
+    <div class="dropdown-divider"></div>
+    <button ngbDropdownItem (click)="logout()">
+      <job-hub-icon icon="logout"></job-hub-icon>
+      <span>Logout</span>
+    </button>
+  </div>
+</li>

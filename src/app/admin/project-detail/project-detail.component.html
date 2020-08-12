@@ -1,0 +1,43 @@
+<section [id]="ScrollPosition.AdminProjectDetail" class="bg-white d-flex flex-column px-75 shadow-1 z-index-1">
+  <div class="row align-items-center flex-grow-1">
+    <ng-container *ngIf="(project$ | async) as project">
+      <div class="col-12 col-lg-8">
+        <div class="d-flex align-items-center">
+          <job-hub-avatar size="120" [type]="project.projectType"></job-hub-avatar>
+          <div class="d-flex flex-column ml-25">
+            <span class="color-tundora font-12 mb-5">Posted by {{ project.user | fullName }}</span>
+            <span class="text-primary font-18 font-weight-medium mb-5">{{ project.name }}</span>
+            <span class="color-tundora font-12 cursor-pointer" (click)="openMapDialog()">{{ project.address }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="d-flex flex-column border-left pl-20">
+          <span class="color-tundora font-12 mb-5">Status <span *ngIf="project.contractStatus !== ContractStatus.Pending"> - Contract {{ project.contractStatus | optionLabel }}</span> </span>
+          <span class="text-primary font-18 font-weight-medium mb-5">{{ project.status | optionLabel }}</span>
+          <span class="color-tundora font-12">{{ project.updatedAt | date }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ul class="nav nav-tabs d-flex justify-content-start px-0 font-12 color-tundora">
+    <li class="nav-item px-0">
+      <a class="nav-link py-2 px-20" [routerLink]="ROUTES.admin.project.brief"  routerLinkActive="active">Project Brief</a>
+    </li>
+    <li class="nav-item px-0" [class.disabled]="!project.estimate">
+      <a class="nav-link py-2 px-20" [routerLink]="ROUTES.admin.project.estimate"  routerLinkActive="active">Estimate</a>
+    </li>
+    <li class="nav-item px-0" [class.disabled]="!project.finalProposal">
+      <a class="nav-link py-2 px-20" [routerLink]="ROUTES.admin.project.finalProposal"  routerLinkActive="active">Final Proposal</a>
+    </li>
+    <li class="nav-item px-0" *ngIf="project.contractStatus !== ContractStatus.Pending">
+      <a class="nav-link py-2 px-20" [routerLink]="ROUTES.admin.project.contract"  routerLinkActive="active">Contract</a>
+    </li>
+    <li class="nav-item px-0" [class.disabled]="project.finalProposal?.status !== FinalProposalStatus.Accepted">
+      <a class="nav-link py-2 px-20" [routerLink]="ROUTES.admin.project.management"  routerLinkActive="active">Project Management</a>
+    </li>
+  </ul>
+</section>
+<section>
+  <router-outlet></router-outlet>
+</section>

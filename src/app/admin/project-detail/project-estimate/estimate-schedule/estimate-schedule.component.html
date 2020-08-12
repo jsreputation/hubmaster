@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-between mb-20">
+  <p class="font-18 font-weight-medium color-mine-shaft mb-0">{{ viewDate | date }}</p>
+  <job-hub-calendar-navigator [view]="CalendarView.Month" [(viewDate)]="viewDate" (viewDateChange)="changeViewDate($event)"></job-hub-calendar-navigator>
+</div>
+<div class="position-relative mb-20">
+  <job-hub-spinner *ngIf="isLoading"></job-hub-spinner>
+  <job-hub-month-calendar [viewDate]="viewDate"
+                          [editable]="true"
+                          (scheduleAdded)="scheduledAdded($event)"
+                          [events]="events"></job-hub-month-calendar>
+</div>
+<button class="btn btn-primary" [disabled]="!schedules.length" (click)="submit()">Preview Estimate</button>

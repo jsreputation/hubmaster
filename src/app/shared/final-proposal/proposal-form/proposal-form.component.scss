@@ -1,0 +1,11 @@
+@import "../../../../assets/theme";
+
+:host {
+  .disabled {
+    ::ng-deep {
+      p, label, input, select {
+        opacity: .5 !important;
+      }
+    }
+  }
+}

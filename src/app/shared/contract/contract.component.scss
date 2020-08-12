@@ -1,0 +1,28 @@
+.btn.btn-category {
+  padding: 0.75rem 1.0rem !important;
+}
+
+.cost-table {
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 2px 8px 0 rgba(224,229,238,0.3);
+  overflow: hidden;
+  .cost-table-header {
+    height: 36px;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #EBEDEF;
+  }
+
+  .cost-table-header, .cost-table-row {
+    & > div {
+      &:first-child {
+        flex: 0 0 60%;
+      }
+      &:last-child {
+        flex: 0 0 40%;
+      }
+    }
+  }
+}

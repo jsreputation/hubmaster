@@ -1,0 +1,40 @@
+<a class="close" mat-dialog-close><span class="material-icons">close</span></a>
+<h5 mat-dialog-title class="text-center mt-20 px-50">{{ data.date | date }}</h5>
+<div mat-dialog-content class="py-30 pretty-scroll">
+  <ng-container *ngIf="data.editable">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <ng-container formGroupName="siteVisitSchedules" *ngFor="let schedule of siteVisitSchedules.controls; let i = index">
+        <div class="row" [formArrayName]="i">
+          <div class="col">
+            <job-hub-time-picker [isRange]="false" label="From" formControlName="from"></job-hub-time-picker>
+          </div>
+          <div class="col">
+            <job-hub-time-picker [min]="schedule.get('from').value" [isRange]="false" label="To" formControlName="to"></job-hub-time-picker>
+          </div>
+        </div>
+      </ng-container>
+      <a class="text-primary w-100 text-center d-block mb-15" (click)="addNewInterval()">New interval</a>
+    </form>
+
+    <div mat-dialog-actions class="d-flex justify-content-center mb-20">
+      <button class="btn btn-primary" [disabled]="form.invalid" (click)="save()">Apply</button>
+    </div>
+  </ng-container>
+
+  <div class="mb-n30">
+    <div *ngFor="let item of data.events" class="d-flex align-items-center justify-content-between bg-color-athens-gray p-15 mb-5 rounded">
+      <div class="d-flex align-items-center">
+        <job-hub-schedule-icon [type]="item.meta.type"></job-hub-schedule-icon>
+        <div class="d-flex flex-column ml-25">
+          <a class="font-13 font-weight-bold color-mine-shaft cursor-pointer" (click)="navigate(item.meta)">{{ item.title }}</a>
+          <span class="font-11 color-dove-gray">{{ item.start | date : 'h:mm a' }} - {{ item.end | date: 'h:mm a' }}</span>
+        </div>
+      </div>
+      <div></div>
+    </div>
+
+    <div mat-dialog-actions class="d-flex justify-content-center mt-20 mb-n20" *ngIf="!data.editable">
+      <button class="btn btn-primary" mat-dialog-close>Close</button>
+    </div>
+  </div>
+</div>

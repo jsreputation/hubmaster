@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-6 col-md-10 text-primary font-12 font-weight-medium">Milestone #{{milestone.order + 1}}</div>
+  <div class="col-6 col-md-2 font-12 color-mine-shaft">Amount</div>
+</div>
+<div class="row">
+  <div class="col-4 col-md-2 color-mine-shaft font-12 font-weight-bold d-flex align-items-center pr-0">{{milestone.name}}</div>
+  <div class="col-4 col-md-8 text-primary font-12 align-items-center d-flex">
+    <div class="d-flex align-items-center flex-wrap" *ngIf="milestone.paidDate; else pay">
+      <img src="assets/images/icons/payment/circle-check.svg" alt="circle check">
+      <span class="pl-2 font-weight-medium">Completed on {{milestone.paidDate | date: 'MMM dd, yyyy'}}</span>
+      <mat-slide-toggle *ngIf="milestone.payWithCash && !isPaying" class="pl-3 font-weight-bold" [checked]="true" (click)="$event.preventDefault()">Cash paid</mat-slide-toggle>
+      <button class="btn btn-primary text-white btn-small ml-20" *ngIf="milestone.order === lastMilestoneOrder" (click)="review.emit(milestone)">{{isPaying ? 'Leave Review' : 'Request Review'}}</button>
+    </div>
+    <ng-template #pay>
+      <ng-container *ngIf="isPaying; else request;">
+        <button class="btn btn-primary text-white btn-small" [disabled]="disableActions || milestone.payWithCash" (click)="makePayment.emit(milestone)">Make payment</button>
+      </ng-container>
+      <ng-template #request>
+        <button class="btn btn-primary text-white btn-small mr-20" [disabled]="disableActions" (click)="requestPayment.emit(milestone)" *ngIf="!readonly && milestone.status !== MilestoneStatus.ReleaseRequested && !project.refund">Request payment</button>
+        <button class="btn btn-primary btn-small mr-20" [disabled]="disableActions" (click)="makeRefund.emit(project)" *ngIf="milestone.order === lastMilestoneOrder && project.refund && !readonly">Make Refund</button>
+        <button class="btn btn-warning text-white btn-small" [disabled]="disableActions" (click)="editMilestone.emit(milestone)" *ngIf="milestone.order === lastMilestoneOrder && !readonly">Edit</button>
+        <mat-slide-toggle class="font-weight-bold pl-3" *ngIf="milestone.payWithCash && !project.refund" [checked]="milestone.paidDate !== null" (click)="clickCashToggle($event)">{{milestone.paidDate ? 'Cash paid' : 'Cash pending'}}</mat-slide-toggle>
+      </ng-template>
+      <span *ngIf="milestone.status === MilestoneStatus.ReleaseRequested" class="text-primary font-12 ml-20">(Payment requested)</span>
+      <span *ngIf="(milestone.status === MilestoneStatus.Pending || milestone.status === MilestoneStatus.ReleaseRequested) && milestone.payWithCash && isPaying" class="text-primary font-12 ml-20">(Cash pending)</span>
+    </ng-template>
+  </div>
+  <div class="col-4 col-md-2 text-primary font-18 d-flex align-items-baseline font-weight-medium">
+    <div>{{milestone.amount | currency}}</div>
+  </div>
+</div>
+<ng-container *ngIf="milestone.order === lastMilestoneOrder">
+  <div class="row justify-content-end" *ngFor="let addOn of project.paymentAddOns">
+    <div class="col-8 col-md-10 d-flex justify-content-end align-items-center">
+      <span class="font-12 color-silver mr-1">Addon</span>
+      <job-hub-information-tooltip [content]="addOn.comment"></job-hub-information-tooltip>
+    </div>
+    <div class="col-4 col-md-2 d-flex justify-content-between align-items-center">
+      <span class="text-primary font-18 font-weight-medium">+ {{addOn.amount | currency}}</span>
+      <span class="cursor-pointer" *ngIf="!isPaying" (click)="removeAddOn.emit(addOn.id)"><img src="assets/images/icons/remove.svg" alt="remove"></span>
+    </div>
+  </div>
+</ng-container>
+<p class="mt-30 font-14 color-mine-shaft">
+  {{milestone.comment}}
+</p>

@@ -1,0 +1,16 @@
+<section class="py-50 px-75 position-relative">
+  <div class="row">
+    <div class="col-9">
+      <job-hub-contract [readonly]="!isEditing" [project]="project" [contract]="contract"></job-hub-contract>
+    </div>
+    <div class="col-3">
+      <div class="d-flex flex-column align-items-start sticky-sidebar">
+        <button class="btn btn-warning text-white mb-30 btn-normal" (click)="save()" *ngIf="isEditing">Save Changes</button>
+        <button class="btn btn-warning text-white mb-30 btn-normal" (click)="isEditing = true" *ngIf="!isEditing">Edit</button>
+        <button class="btn btn-primary btn-small btn-normal" *ngIf="contract.id">Export / Print</button>
+      </div>
+    </div>
+  </div>
+
+  <job-hub-spinner *ngIf="isSaving"></job-hub-spinner>
+</section>

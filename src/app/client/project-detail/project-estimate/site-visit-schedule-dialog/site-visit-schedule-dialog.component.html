@@ -1,0 +1,29 @@
+<a class="close" mat-dialog-close><span class="material-icons">close</span></a>
+<h5 mat-dialog-title class="text-center mt-20 px-50 color-mine-shaft">Schedule site visit</h5>
+<div mat-dialog-content class="pt-20 text-center pretty-scroll">
+  <p class="font-14 color-dove-gray mb-15">Select a day</p>
+  <div class="d-flex flex-wrap justify-content-center mx-n10">
+    <div class="day-button rounded d-flex flex-column align-items-center justify-content-center mx-10"
+         *ngFor="let item of days"
+         [class.active]="selectedDay === item"
+         (click)="selectDay(item)">
+      <span class="font-weight-bold font-14">{{ item | date : 'MMM d' }}</span>
+      <span class="font-weight-medium font-10">{{ item | date : 'EEEE' }}</span>
+    </div>
+  </div>
+  <p class="font-14 color-dove-gray mb-15 mt-35">Select a time</p>
+  <div class="d-flex flex-wrap justify-content-center mx-n10">
+    <div class="time-button rounded d-flex align-items-center justify-content-center mx-10 font-14 font-weight-bold"
+         *ngFor="let item of options[selectedDay]"
+         [class.active]="selectedOption === item"
+         (click)="selectedOption = item">
+      <span>{{ item.from | date : 'h a' }}</span>&nbsp;-&nbsp;<span>{{ item.to | date : 'h a' }}</span>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-center mt-35">
+  <button class="btn btn-primary" (click)="schedule()" [disabled]="isSaving || !selectedOption">Schedule</button>
+  <button class="btn btn-warning text-white ml-4" (click)="requestAnotherDay()" [disabled]="isSaving">Request another day</button>
+</div>
+
+<job-hub-spinner *ngIf="isSaving"></job-hub-spinner>

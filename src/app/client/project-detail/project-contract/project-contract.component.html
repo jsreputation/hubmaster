@@ -1,0 +1,27 @@
+<section class="py-30 position-relative">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-9">
+        <p class="color-regent-gray font-weight-medium mb-40">Project Contract</p>
+        <p class="color-mine-shaft font-12" *ngIf="contract.signedDate">{{ contract.signedDate | date }}</p>
+        <job-hub-contract [readonly]="true" [contract]="contract" [project]="project"></job-hub-contract>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <div class="client-sticky-sidebar">
+          <button class="btn btn-warning text-white btn-small w-100" (click)="sign()" *ngIf="project.contractStatus === ContractStatus.Ready">Sign & Accept Project</button>
+          <button class="btn btn-primary btn-small w-100 mt-20" [routerLink]="[ROUTES.app.root, ROUTES.app.project, project.id, ROUTES.app.payment] | routeToAbsolute" *ngIf="project.contractStatus === ContractStatus.Accepted">Management</button>
+          <button class="btn btn-primary btn-small w-100 mt-20" (click)="print()">Print Contract</button>
+
+          <div class="mt-45" *ngIf="project.latitude && project.longitude">
+            <job-hub-map [latitude]="project.latitude" [longitude]="project.longitude"></job-hub-map>
+          </div>
+
+          <div *ngIf="project.assignedContractor" class="mt-45">
+            <job-hub-request-chat [project]="project" [user]="project.assignedContractor"></job-hub-request-chat>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <job-hub-spinner *ngIf="isLoading"></job-hub-spinner>
+</section>

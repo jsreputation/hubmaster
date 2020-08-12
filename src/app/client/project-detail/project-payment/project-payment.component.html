@@ -1,0 +1,30 @@
+<section class="py-30 position-relative">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-9">
+        <p class="color-regent-gray font-weight-medium mb-20">Manage Project</p>
+        <div *ngFor="let milestone of milestones; let i = index;">
+          <job-hub-milestone
+            (makePayment)="makePayment(milestone)"
+            [disableActions]="i !== 0 && milestones[i-1].paidDate == null"
+            [isPaying]="true"
+            [project]="project"
+            (review)="review()"
+            [milestone]="milestone"></job-hub-milestone>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 col-lg-3">
+        <div class="client-sticky-sidebar">
+          <div *ngIf="project.assignedContractor" class="mt-50 mb-30">
+            <job-hub-request-chat [project]="project" [user]="project.assignedContractor"></job-hub-request-chat>
+          </div>
+          <job-hub-request-contract [project]="project"></job-hub-request-contract>
+          <button class="btn btn-primary btn-small w-100 mt-30 mb-15" [routerLink]="[ROUTES.app.root, ROUTES.app.project, project.id, ROUTES.app.proposal] | routeToAbsolute">View Proposal</button>
+          <button class="btn btn-primary btn-small w-100 mb-15" *ngIf="project.contractStatus === ContractStatus.Accepted" [routerLink]="[ROUTES.app.root, ROUTES.app.project, project.id, ROUTES.app.contract] | routeToAbsolute">View Contract</button>
+          <button class="btn btn-primary btn-small w-100" [routerLink]="[ROUTES.app.root, ROUTES.app.ideaBoard] | routeToAbsolute">Idea Board</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <job-hub-spinner *ngIf="isSaving"></job-hub-spinner>
+</section>

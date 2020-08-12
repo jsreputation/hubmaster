@@ -1,0 +1,177 @@
+<form class="font-14 color-mine-shaft" [formGroup]="form">
+  <p class="font-weight-medium text-primary mb-10">{{ project.user | fullName }}</p>
+  <div class="font-12 mb-40">
+    <p class="mb-0">{{ project.user.address || project.address }}</p>
+    <p class="mb-0">{{ project.user.phone }}</p>
+  </div>
+
+  <p class="font-weight-bold mb-0">Subject:</p>
+  <p class="font-weight-medium mb-30">{{ categories.join(', ') }}</p>
+
+  <p>We are excited to provide our proposal for the installation of a <span class="text-primary font-weight-medium">{{ project.name }}</span> for the <span class="text-primary font-weight-medium">{{ project.user.lastName }}</span> Residence. J & D Landscaping has been a certified hardscaping contractor for over 15 years, specializing in paver walkways, patios, driveways, and retaining walls for both residential and commercial applications.</p>
+  <p class="mb-40">J & D Landscaping is a certified Techo-Pro installer, with over 2,500 completed hardscape projects throughout Connecticut and Massachusetts. We are an efficient, close-knit team of hardscape and paver installation professionals. We look forward to bringing your project to completion in a cost-effective and timely manner following all industry best practices.</p>
+
+  <p class="font-weight-bold mb-15">The J & D Landscaping Process</p>
+  <p class="mb-50">At J & D Landscaping, we believe in keeping our customers involved and informed during the design and construction process. From the time of the initial engagement, until the project is complete, we will provide full visibility into our work, our schedule and any issues or challenges that we encounter along the way along with appropriate resolution plans and recommendations. We utilize a five-phase process to design and implement a plan for construction. Even for projects that are lower in scope, we use this process to ensure that our customer receives a best-in-class product. </p>
+
+  <div class="d-flex align-items-center flex-wrap mb-50">
+    <button type="button" class="btn btn-primary btn-category mr-10 mb-10">Consulting & Plan</button>
+    <button type="button" class="btn btn-primary btn-category mr-10 mb-10">Material Selection & Procurement</button>
+    <button type="button" class="btn btn-primary btn-category mr-10 mb-10">Pre-Construction</button>
+    <button type="button" class="btn btn-primary btn-category mr-10 mb-10">Construction</button>
+    <button type="button" class="btn btn-primary btn-category mb-10">Post-Construction</button>
+  </div>
+
+  <p class="font-weight-medium mb-0">Consult & Plan</p>
+  <p class="">We will spend time at the start of our engagement with the client to understand their main objectives and goals with the construction of the new <span class="text-primary font-weight-medium">{{ categories.join(' / ') }}</span>.</p>
+
+  <p class="font-weight-medium mb-0">Material Selection & Procurement</p>
+  <p class="">We will provide recommendations for material choices and color combinations to the client based on your desired aesthetic, durability and usability objectives. We can provide paver samples onsite or meet with clients to look at all the available options. Upon choosing materials, J & D Landscaping will order the materials and schedule all required pavers and other materials</p>
+
+  <p class="font-weight-medium mb-0">Pre-construction meeting</p>
+  <p class="">Prior to starting work on the first day of construction, J & D Landscaping will meet with the client to conduct a pre-construction walkthrough to ensure both parties are on the same page and that all questions have been answered prior to starting the project. We will review the laydown and construction plan that was developed in the initial phase and confirm that all requests are completed and that conditions are suitable for a high-quality project.</p>
+
+  <p class="font-weight-medium mb-0">Construction</p>
+  <p class="">During the construction process, we will ensure a tidy and neat job site with daily clean-ups to reduce the inconvenience of construction. During this process, J & D Landscaping will operate Monday thru Friday from 7am to 5pm, and provide daily updates to the client. If there are any questions during the construction process J & D Landscaping will always have a foreman on site who can address any concerns. Additionally, the company owners are available via mobile phone at any time for any potential escalations or unresolved issues.</p>
+
+  <p class="font-weight-medium mb-0">Post-construction meeting</p>
+  <p class="mb-40">Upon completion of the project, J & D Landscaping will meet with the customer to conduct a post-construction walkthrough to ensure the project has been completed as promised and conduct a project completion and acceptance process.</p>
+
+  <job-hub-contract-comment-input id="{{prefix}}_existingSiteAssessment" label="Existing Site Assessment" formControlName="existingSiteAssessment" [readonly]="readonly"></job-hub-contract-comment-input>
+
+  <p class="font-weight-bold mb-15">Project Design Considerations</p>
+  <p class="mb-25">Based on our knowledge of the hardscape industry, we recommend keeping the following in mind:</p>
+
+  <job-hub-contract-comment-input id="{{prefix}}_paversSize" label="Size of Pavers" formControlName="paversSize" [readonly]="readonly"></job-hub-contract-comment-input>
+  <job-hub-contract-comment-input id="{{prefix}}_paversColor" label="Color of Pavers" formControlName="paversColor" [readonly]="readonly"></job-hub-contract-comment-input>
+  <job-hub-contract-comment-input id="{{prefix}}_paversQuality" label="Quality of Pavers" formControlName="paversQuality" [readonly]="readonly"></job-hub-contract-comment-input>
+
+  <p class="font-weight-medium text-primary">Layouts</p>
+
+  <ng-container formGroupName="layouts" *ngFor="let layout of layouts.controls; let i = index;">
+    <ng-container [formArrayName]="i">
+      <job-hub-contract-comment-input id="{{prefix}}_layouts_{{i}}_comment" [optional]="true" [label]="layout.get('type').value | optionLabel" formControlName="comment" [readonly]="readonly"></job-hub-contract-comment-input>
+    </ng-container>
+  </ng-container>
+
+  <p class="font-weight-bold mb-15">Construction Procedure</p>
+  <p class="mb-25">It is essential that during the construction of any new hardscaping project that the following procedures are completed to industry standards ensuring a quality long-lasting project.</p>
+
+  <job-hub-contract-comment-input id="{{prefix}}_existingMaterialsRemoval" label="Removal of existing materials" formControlName="existingMaterialsRemoval" [readonly]="readonly"></job-hub-contract-comment-input>
+
+  <p class="mb-30"><span class="font-weight-medium">Excavation</span> - J & D Landscaping will dig to a minimum depth of 12”, or till suitable subsoil is exposed typically no more than 18”, upon exposure the subsoil will be leveled out and compacted in preparation for Geo-Textile fabric.</p>
+  <p class="mb-30"><span class="font-weight-medium">Geo-textile</span> - The installation of a 25-year geotextile fabric will be installed across the base and up the sides of the excavated area. Fabric will be cut around grade stakes and overlap any on any seams to ensure the proper base and subgrade separation.</p>
+  <p class="mb-30"><span class="font-weight-medium">Base</span> - J & D Landscaping will bring in clean ¾ inch process gravel (Or trap rock depending on subsoil) that will be laid out in 3 to 4-inch lifts and compacted to a 98% compaction ratio and brought up to the proper grade.</p>
+  <p class="mb-30"><span class="font-weight-medium">Screeding</span> - Upon completion of packing the process gravel base, J & D Landscaping will use a ¼” chip stone (Not sand or stone dust) to set the final level and grade in preparation to lay the pavers. Chip stone will be compacted prior to screeding and will act as the final step in base preparation.</p>
+  <p class="mb-30"><span class="font-weight-medium">Installation</span> - Pavers will be installed manually. Pavers that need to be cut will be “overlaid” and cut in place to ensure smooth corners and consistent flow. Upon completion of cuts, a border will be installed along with metal edging and 12” spikes to ensure durability.</p>
+  <p class="mb-30"><span class="font-weight-medium">Polymeric sand</span> - Upon completion of laying the pavers, polymeric sand will be spread across the pavers. J & D Landscaping will then compact the pavers with a smaller plate compactor, forcing the poly sand down in-between all the cracks. Once packed, the pavers will be swept clean, blown off and water will be sprayed on top and thoroughly to activate the poly sand. (Note - poly sand can not be applied if pavers are wet or temperatures are below 32 degrees)</p>
+  <p class="mb-30"><span class="font-weight-medium">Clean up</span> -  Topsoil will be installed to repair any disturbed ground during the construction process, this will also include any tracks from the equipment.</p>
+  <p class="mb-40"><span class="font-weight-medium">Warranty</span> - J & D Landscaping provides a 5-year warranty on all workmanship that covers damages that could occur from improper installation. The warranty does not cover damage from excessive water, lack of paver maintenance or abuse from heavy equipment.  Manufacturers also provide a secondary warranty on the paver (see manufacturer's warranty for more details).</p>
+
+  <job-hub-contract-comment-input [readonly]="readonly" id="{{prefix}}_workPlan" label="Work Plan" formControlName="workPlan" description="We will work with the customer to put together  a project plan that fits their schedule. We have developed an initial schedule that provides for project completion and clean up. This schedule is provided as a guideline. The dates are placeholders and will be adjusted based on the anticipated start and required end dates.">
+    <div class="mt-20">
+      <job-hub-photo-uploader formControlName="attachments" [size]="40" align="start" [readonly]="readonly"></job-hub-photo-uploader>
+    </div>
+  </job-hub-contract-comment-input>
+
+  <p class="font-weight-bold mb-15">Cost Estimate</p>
+  <div class="cost-table">
+    <div class="cost-table-header bg-color-blue-lagoon d-flex align-items-center text-white font-12">
+      <div class="px-15"><span>Description</span></div>
+      <div class="px-15"><span>Cost</span></div>
+    </div>
+    <div class="cost-table-content">
+      <div class="cost-table-row d-flex align-items-start py-15" [class.border-bottom]="costEstimates.controls && costEstimates.controls.length">
+        <div class="px-15">
+          <p class="font-weight-medium text-primary mb-0">Project</p>
+          <p class="mb-0">{{ project.name }}</p>
+        </div>
+        <div class="px-15">
+          <p class="font-12 font-weight-medium text-primary mb-0">{{ categories.join(' / ') }}</p>
+          <p class="mb-0">{{ subTotal | currency }}</p>
+        </div>
+      </div>
+
+      <div class="cost-table-row d-flex align-items-start py-15" formGroupName="costEstimates" *ngFor="let estimate of costEstimates.controls; let i = index;">
+        <ng-container [formArrayName]="i">
+          <ng-container *ngIf="estimate.get('isEditing').value && !readonly">
+            <div class="px-15">
+              <job-hub-textarea formControlName="comment" label="Sub project {{ i + 1 }}" placeholder="Description"></job-hub-textarea>
+            </div>
+            <div class="px-15 d-flex flex-column">
+              <job-hub-multi-select [options]="accessoryOptions" label="Accessories" formControlName="accessories"></job-hub-multi-select>
+              <job-hub-text-input type="number" label="Amount" placeholder="Amount" min="0" formControlName="price"></job-hub-text-input>
+              <div class="d-flex align-items-center justify-content-end">
+                <button type="button" class="btn btn-warning text-white btn-small mr-20" (click)="estimate.get('isEditing').setValue(false)" [disabled]="estimate.invalid">Save</button>
+                <button type="button" class="btn btn-danger btn-small" (click)="costEstimates.removeAt(i)">Delete</button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!estimate.get('isEditing').value || readonly">
+            <div class="px-15">
+              <p class="font-13 font-weight-medium text-primary mb-0">Sub project {{ i + 1 }}</p>
+              <p class="font-13 mb-0">{{ estimate.get('comment').value }}</p>
+            </div>
+            <div class="px-15 d-flex align-items-center justify-content-between">
+              <div>
+                <p class="font-12 font-weight-medium text-primary mb-0">{{ estimate.get('accessories').value | optionLabel : accessoryOptions : true }}</p>
+                <p class="mb-0">{{ estimate.get('price').value | currency }}</p>
+              </div>
+              <a class="cursor-pointer" (click)="estimate.get('isEditing').setValue(true)" *ngIf="!readonly">
+                <img src="assets/images/icons/edit.svg" alt="Edit">
+              </a>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="pt-10 pb-15 px-15" *ngIf="!readonly">
+      <button type="button" class="btn btn-primary btn-small" (click)="saveEstimates()" [disabled]="costEstimates.invalid">Save</button>
+      <button type="button" class="btn btn-warning text-white btn-small ml-20" (click)="addEstimate()">Add New</button>
+    </div>
+  </div>
+
+  <p class="font-weight-bold mb-15 mt-40">Sub Total</p>
+  <p class="font-24 font-weight-medium text-primary mb-40">{{ subTotal | currency }}</p>
+
+  <p class="font-weight-medium mb-0">Taxes</p>
+  <p class="mb-40">A charge of 6.35% will be applied to the total cost of the project. (N/A)</p>
+
+  <p class="font-weight-bold mb-25">Payment Schedule</p>
+  <p class="font-weight-medium mb-0">Compensation</p>
+  <p class="mb-0"><span class="text-primary font-weight-medium">Contract signing:</span> 10% of the contract amount</p>
+  <p class="mb-0"><span class="text-primary font-weight-medium">Materials arrive onsite and the project has started:</span> 40%</p>
+  <p class="mb-25"><span class="text-primary font-weight-medium">The project has been completed and signed off on:</span>  50%</p>
+
+  <p class="font-weight-medium mb-0">Invoices</p>
+  <p class="mb-25">Unless otherwise agreed with the client, our invoices are due upon completion of the project.</p>
+
+  <p class="font-weight-medium mb-0">Payment</p>
+  <p class="mb-40">Payment can be made by ACH, wire, credit card or check. For payment by ACH or wire, we will provide appropriate bank routing and account information in advance of the first payment. Payments made by check must be received by J & D Landscaping by the invoice date.</p>
+
+  <p class="font-weight-bold mb-25">J&D Landscape Past Projects</p>
+  <p class="mb-25">J & D Landscaping has installed hardscaping for residential, commercial and municipal customers throughout Connecticut and Massachusetts. We provide a flexible range of services that include the installation of walkways, patios, parking areas, pool patios, retaining walls and other hardscape related projects. Below are just a few examples of some projects that are similar to the size and scope of your project.  To view more projects please visit our Instagram page that is consistently updated with new projects as they have been completed.  More project photos are available on Instagram at <a class="text-primary" href="https://www.instagram.com/jdlandscapingllc/" target="_blank">@JDLandscapingLLC</a></p>
+  <div class="mb-20">
+    <job-hub-portfolio-project-on-contract *ngFor="let project of pastProjects" [project]="project"></job-hub-portfolio-project-on-contract>
+  </div>
+
+  <p class="font-weight-bold mb-25">References</p>
+  <p class="mb-25">J & D Landscaping can provide a list of additional references if requested, additional project photos to the references listed below and any other additional information the town requests.</p>
+  <div class="mb-25">
+    <job-hub-portfolio-project-on-contract *ngFor="let project of referenceProjects" [project]="project"></job-hub-portfolio-project-on-contract>
+  </div>
+
+  <p class="mb-40">Thank you for your time and consideration and please don’t hesitate to reach out for additional information.</p>
+
+  <div>
+    <img class="img-fluid" src="assets/images/signature.svg" alt="Joe Masciovecchio">
+  </div>
+  <p class="mb-40">Joe Masciovecchio</p>
+
+  <div class="d-flex flex-column">
+    <p class="font-weight-medium text-primary mb-0">J & D Landscaping</p>
+    <a class="text-primary" href="tel:18603246218">860-324-6218</a>
+    <a class="text-primary" href="https://www.jdlandscaping.net" target="_blank">jdlandscaping.net</a>
+    <a class="text-primary" href="mailto:joe@jdLandscaping.net">joe@jdLandscaping.net</a>
+  </div>
+</form>
